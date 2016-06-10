@@ -4,7 +4,7 @@ var stargazers = 0
 var activeSockets: [WebSocket] = []
 View.renderers["html"] = HTMLRender()
 
-let app = Application(workDir: WorkDir.file)
+let app = Application(workDir: workDir)
 
 // MARK: Visit
 
