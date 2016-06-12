@@ -17,20 +17,25 @@ app.get { req in
     return try app.view("welcome.html")
 }
 
+var chatters: [WebSocket] = []
+func sendToChats(_ text: String, except sender: WebSocket) throws {
+    try chatters.forEach { ws in
+        guard ws !== sender else { return }
+        try ws.send(text)
+    }
+}
+
 app.get("chat") { req in
     return try req.upgradeToWebSocket { ws in
-//        ws.onFrame = { ws, frame in
-//            print("Got payload: \(frame.payload.string)")
-//            try ws.send("Hi From Sockets")
-//        }
+        chatters.append(ws)
+        try sendToChats("A new member joined", except: ws)
+
         ws.onText = { ws, text in
-            print("Got text: \(text)")
-            try ws.send("HIYA")
+            try sendToChats(text, except: ws)
         }
-        ws.onClose = { ws in
-            print("CLOSED")
+        ws.onClose = { ws, _, _, _ in
+            chatters = chatters.filter { $0 !== ws }
         }
-        print("Here")
     }
 }
 

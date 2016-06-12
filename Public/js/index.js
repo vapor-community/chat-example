@@ -69,9 +69,6 @@ function insertMessage() {
   setDate();
   $('.message-input').val(null);
   updateScrollbar();
-  // setTimeout(function() {
-  //   fakeMessage();
-  // }, 1000 + (Math.random() * 20) * 100);
 }
 
 $('.message-submit').click(function() {
