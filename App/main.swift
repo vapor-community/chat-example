@@ -17,6 +17,17 @@ app.get { req in
     return try app.view("welcome.html")
 }
 
+app.socket("chat") { req, ws in
+    ws.onText = { ws, text in
+        print("Got message: \(text)")
+    }
+}
+
+/*
+ STYLE SOURCE:
+ http://codepen.io/supah/pen/jqOBqp?utm_source=bypeople
+ */
+
 // MARK: Web Hook
 
 app.post("gh-webhook") { req in
