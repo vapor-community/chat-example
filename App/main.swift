@@ -17,9 +17,20 @@ app.get { req in
     return try app.view("welcome.html")
 }
 
-app.socket("chat") { req, ws in
-    ws.onText = { ws, text in
-        print("Got message: \(text)")
+app.get("chat") { req in
+    return try req.upgradeToWebSocket { ws in
+//        ws.onFrame = { ws, frame in
+//            print("Got payload: \(frame.payload.string)")
+//            try ws.send("Hi From Sockets")
+//        }
+        ws.onText = { ws, text in
+            print("Got text: \(text)")
+            try ws.send("HIYA")
+        }
+        ws.onClose = { ws in
+            print("CLOSED")
+        }
+        print("Here")
     }
 }
 

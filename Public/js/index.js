@@ -1,11 +1,45 @@
+var ws = new WebSocket("ws://localhost:8080/chat");
+
+ws.onopen = function()
+{
+  websocketIsOpen();
+};
+
+ws.onmessage = function (evt)
+{
+   var received_msg = evt.data;
+   addMessage(received_msg);
+};
+
+ws.onclose = function()
+{
+   // websocket is closed.
+   alert("Unexpectedly disconnected, please reload your page");
+};
+
 var $messages = $('.messages-content'),
     d, h, m,
     i = 0;
 
+function websocketIsOpen() {
+  hideMessageLoading();
+  addMessage("You have joined the room 👋");
+}
+
 $(window).load(function() {
   $messages.mCustomScrollbar();
   setTimeout(function() {
-    fakeMessage();
+    switch (ws.readyState) {
+      case 0:
+        showMessageLoading();
+        break;
+      case 1:
+        websocketIsOpen();
+        break;
+      default:
+        alert("Fialed to connect");
+        break;
+    }
   }, 100);
 });
 
@@ -26,6 +60,8 @@ function setDate(){
 
 function insertMessage() {
   msg = $('.message-input').val();
+  ws.send(msg)
+
   if ($.trim(msg) == '') {
     return false;
   }
@@ -33,9 +69,9 @@ function insertMessage() {
   setDate();
   $('.message-input').val(null);
   updateScrollbar();
-  setTimeout(function() {
-    fakeMessage();
-  }, 1000 + (Math.random() * 20) * 100);
+  // setTimeout(function() {
+  //   fakeMessage();
+  // }, 1000 + (Math.random() * 20) * 100);
 }
 
 $('.message-submit').click(function() {
@@ -49,37 +85,31 @@ $(window).on('keydown', function(e) {
   }
 })
 
-var Fake = [
-  'Hi there, I\'m Fabio and you?',
-  'Nice to meet you',
-  'How are you?',
-  'Not too bad, thanks',
-  'What do you do?',
-  'That\'s awesome',
-  'Codepen is a nice place to stay',
-  'I think you\'re a nice person',
-  'Why do you think that?',
-  'Can you explain?',
-  'Anyway I\'ve gotta go now',
-  'It was a pleasure chat with you',
-  'Time to make a new codepen',
-  'Bye',
-  ':)'
-]
-
 function fakeMessage() {
   if ($('.message-input').val() != '') {
     return false;
   }
-  $('<div class="message loading new"><figure class="avatar"><img src="http://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80_4.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
-  updateScrollbar();
+  showMessageLoading();
 
   setTimeout(function() {
-    $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="https://avatars3.githubusercontent.com/u/17364220?v=3&s=200" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
-    setDate();
-    updateScrollbar();
+    addMessage("HI");
     i++;
   }, 1000 + (Math.random() * 20) * 100);
 
+}
+
+function showMessageLoading() {
+  $('<div class="message loading new"><figure class="avatar"><img src="https://avatars3.githubusercontent.com/u/17364220?v=3&s=200" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+  updateScrollbar();
+}
+
+function hideMessageLoading() {
+  $('.message.loading').remove();
+}
+
+function addMessage(msg) {
+  hideMessageLoading();
+  $('<div class="message new"><figure class="avatar"><img src="https://avatars3.githubusercontent.com/u/17364220?v=3&s=200" /></figure>' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+  setDate();
+  updateScrollbar();
 }
