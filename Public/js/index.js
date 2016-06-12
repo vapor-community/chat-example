@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://localhost:8080/chat");
+var ws = new WebSocket("ws://vapor-chat.herokuapp.com/chat");
 
 ws.onopen = function()
 {
