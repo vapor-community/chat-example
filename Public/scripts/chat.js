@@ -3,7 +3,7 @@ function Chat(host) {
 
     chat.ws = new WebSocket('ws://' + host);
     chat.ws.onopen = function() {
-        var name = prompt('What is your name?');
+        var name = prompt('What is your GitHub username?');
         chat.join(name);
     };
 
@@ -29,7 +29,13 @@ function Chat(host) {
         bubble.attr('data-username', message.username);
 
         if (!imageUrl) {
-            $.get('https://api.github.com/users/' + message.username, function(data) {
+            var username = message.username;
+
+            if (username == "Bot") {
+                username = "qutheory";
+            }
+
+            $.get('https://api.github.com/users/' + username, function(data) {
                 $('div.message[data-username=' + message.username + ']').find('img').attr('src', data.avatar_url);
                 chat.images[message.username] = data.avatar_url;
                 console.log(chat.images);
