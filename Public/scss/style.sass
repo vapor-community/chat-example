@@ -18,9 +18,6 @@
     margin-top: 4px
     animation: ball .45s cubic-bezier(0, 0, 0.15, 1) alternate infinite
 
-
-
-
 // Body
 *,
 *::before,
@@ -51,7 +48,7 @@ body
 
     position: relative
 
-    padding-top: 40px
+    padding-top: 44px
     padding-bottom: 40px
 
     z-index: 2
@@ -121,17 +118,10 @@ body
 
     overflow: hidden
     overflow-y: scroll
-    
-    & .messages-content 
-        position: absolute
-        top: 0
-        left: 0
-        height: 101%
-        width: 100%
-    
-
+    -webkit-overflow-scrolling: touch
     
     .message 
+        color: #fff
         clear: both
         float: left
         padding: 6px 10px 7px
@@ -143,11 +133,12 @@ body
         margin-left: 35px
         position: relative
         text-shadow: 0 1px 1px rgba(0, 0, 0, .2)
+        word-break: break-all
         
         .timestamp 
             position: absolute
             bottom: -15px
-            right: 0
+            left: 10px
             font-size: 9px
             color: rgba(255, 255, 255, .3)
         
@@ -187,6 +178,10 @@ body
             background: rgba(0, 0, 0, .3)
             //background: linear-gradient(120deg, #248A52, #257287)
             border-radius: 10px 10px 0 10px
+
+            .timestamp 
+                right: 5px
+                left: auto
             
             &::before 
                 left: auto
@@ -196,10 +191,6 @@ body
                 border-top: 4px solid rgba(0, 0, 0, .3)
                 bottom: -4px
             
-        
-        
-        &:last-child 
-            margin-bottom: 30px
         
         
         &.new 
@@ -293,7 +284,7 @@ body
         transition: background .2s ease
         
         &:hover 
-            background: #1D7745
+            background: #F7CAC9
         
     
 
