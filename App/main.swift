@@ -23,7 +23,7 @@ app.socket("chat") { req, ws in
         if let u = json["username"]?.string {
             username = u
             room.connections[u] = ws
-            try room.bot("\(u) has joined.")
+            try room.bot("\(u) has joined. 👋")
         }
 
         if let u = username, let m = json["message"]?.string {
