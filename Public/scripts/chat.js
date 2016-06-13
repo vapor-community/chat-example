@@ -67,7 +67,7 @@ function Chat(host) {
                     if (data.avatar_url) {
                         imageUrl = data.avatar_url;
                     } else {
-                        imageUrl = chat.imageCache['qutheory'];
+                        imageUrl = 'https://avatars3.githubusercontent.com/u/17364220?v=3&s=200';
                     }
 
                     $('div.message[data-username=' + lookup + ']')
