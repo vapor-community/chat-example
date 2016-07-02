@@ -3,7 +3,7 @@ import PackageDescription
 let package = Package(
     name: "VaporApp",
     dependencies: [
-        .Package(url: "https://github.com/loganwright/vapor.git", majorVersion: 0, minor: 42),
+        .Package(url: "https://github.com/qutheory/vapor.git", majorVersion: 0, minor: 12),
     ],
     exclude: [
 	    "Config",

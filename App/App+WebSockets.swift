@@ -2,7 +2,7 @@ import Vapor
 
 extension WebSocket {
     func send(_ json: JSON) throws {
-        let js = json.serialize(.PrettyPrint)
-        try send(js)
+        let js = try JSON.serialize(json)
+        try send(js.string)
     }
 }
