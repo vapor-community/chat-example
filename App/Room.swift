@@ -10,7 +10,7 @@ class Room {
     func send(name: String, message: String) throws {
         let message = message.truncated(to: 256)
 
-        let json = JSON([
+        let json = try JSON([
             "username": name,
             "message": message
         ])

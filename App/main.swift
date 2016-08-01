@@ -1,24 +1,24 @@
 import Vapor
 import Foundation
 
-let app = Application(workDir: workDir)
+let drop = Droplet(workDir: workDir) //, providers: [mustache])
 
 // MARK: Visit
 
-app.get { req in
+drop.get { req in
     // Design from: http://codepen.io/supah/pen/jqOBqp?utm_source=bypeople
-    return try app.view("welcome.html")
+    return try drop.view("welcome.html")
 }
 
 // MARK: Sockets
 
 let room = Room()
 
-app.socket("chat") { req, ws in
+drop.socket("chat") { req, ws in
     var username: String? = nil
 
     ws.onText = { ws, text in
-        let json = try JSON.parse(Array(text.utf8))
+        let json = try JSON(bytes: Array(text.utf8))
 
         if let u = json.object?["username"].string {
             username = u
@@ -41,5 +41,5 @@ app.socket("chat") { req, ws in
     }
 }
 
-app.start()
+drop.serve()
 
