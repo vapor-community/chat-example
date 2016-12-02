@@ -7,7 +7,7 @@ let drop = Droplet(workDir: workDir) //, providers: [mustache])
 
 drop.get { req in
     // Design from: http://codepen.io/supah/pen/jqOBqp?utm_source=bypeople
-    return try drop.view("welcome.html")
+    return try drop.view.make("welcome.html")
 }
 
 // MARK: Sockets
@@ -20,7 +20,7 @@ drop.socket("chat") { req, ws in
     ws.onText = { ws, text in
         let json = try JSON(bytes: Array(text.utf8))
 
-        if let u = json.object?["username"].string {
+        if let u = json.object?["username"]?.string {
             username = u
             room.connections[u] = ws
             try room.bot("\(u) has joined. 👋")
@@ -41,5 +41,5 @@ drop.socket("chat") { req, ws in
     }
 }
 
-drop.serve()
+drop.run()
 
