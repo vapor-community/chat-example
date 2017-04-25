@@ -23,11 +23,11 @@ drop.socket("chat") { req, ws in
         if let u = json.object?["username"]?.string {
             username = u
             room.connections[u] = ws
-            try room.bot("\(u) has joined. 👋")
+            room.bot("\(u) has joined. 👋")
         }
 
         if let u = username, let m = json.object?["message"]?.string {
-            try room.send(name: u, message: m)
+            room.send(name: u, message: m)
         }
     }
 
@@ -36,7 +36,7 @@ drop.socket("chat") { req, ws in
             return
         }
 
-        try room.bot("\(u) has left")
+        room.bot("\(u) has left")
         room.connections.removeValue(forKey: u)
     }
 }
