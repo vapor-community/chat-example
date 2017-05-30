@@ -4,8 +4,9 @@ let room = Room()
 
 extension Droplet {
     public func setup() throws {
-        let routes = Routes(view: view)
-        try collection(routes)
+        get("/") { _ in
+            try self.view.make("welcome.html")
+        }
         
         socket("chat") { req, ws in
             var username: String? = nil
