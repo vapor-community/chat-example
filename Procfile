@@ -1,1 +1,1 @@
-web: App --port=$PORT
+web: .build/release/Run --env=production
