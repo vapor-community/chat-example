@@ -47,7 +47,7 @@
       "package": "Engine",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/engine.git",
-      "version": "2.0.3"
+      "version": "2.1.0"
     },
     {
       "package": "JSON",
@@ -65,7 +65,7 @@
       "package": "Node",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/node.git",
-      "version": "2.0.1"
+      "version": "2.0.3"
     },
     {
       "package": "Random",
@@ -89,13 +89,13 @@
       "package": "TLS",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/tls.git",
-      "version": "2.0.1"
+      "version": "2.0.4"
     },
     {
       "package": "Vapor",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/vapor.git",
-      "version": "2.0.4"
+      "version": "2.1.0"
     }
   ],
   "version": 1
